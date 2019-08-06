@@ -1,0 +1,54 @@
+
+
+<header class='flex-container flex-center'>
+    <div class='width-25'>
+    </div>
+        <div class="width-half">
+            <label for="search">
+               <i class='fa fa-search icon-pos color-purple'></i>
+            </label>
+            <form  [formGroup]='stateForm' autocomplete="off" novalidate>
+                <input  autocomplete="off" id='search' placeholder="Search for a movies" [value]="searchVal"  (keyup)="onKeyUp()" formControlName='search' (click)=' openDropDown() ' class=' input-underline search-bar ' type='text' #reference>
+            </form>
+            <div clickOutside (clickOutside)="closeDropDown()">
+                <div *ngIf='showDropDown' class='search-drop-down '>
+                    <div (click)='selectValue(s)' class='search-results ' *ngFor="let s of states |searchFilter: getSearchValue()">
+                        <a [innerHTML]="s | letterBold: getSearchValue()">
+                           {{s}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div>
+        <button type="button" id="b1" (click)="reference.value=''" (click)="onClear()">Clear</button>
+    </div>
+    <div class="divButton" *ngIf='showLoading'>
+        <button  class="buttonload">
+            <i class="fa fa-spinner fa-spin"></i>
+        </button>
+    </div>
+    <div class='width-25 '></div>
+</header>
+<main class="main">
+    <div *ngIf='showDiv'>
+    <table>
+        <tr>
+                <th>Title</th>
+                <th>Release Date</th>
+                <th>Vote Count</th>
+                <th>Vote Average</th>
+                <th>Popularity</th>
+        </tr>
+        <tr *ngFor = "let m of movies">
+            <td>{{m.title}}</td>
+            <td>{{m.release_date}}</td>
+            <td>{{m.vote_count}}</td>
+            <td>{{m.vote_average}}</td>
+            <td>{{m.popularity}}</td>
+        </tr>
+    </table>
+    </div>
+</main>
+<footer>
+</footer>
